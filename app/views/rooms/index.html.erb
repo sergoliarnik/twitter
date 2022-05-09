@@ -1,14 +1,45 @@
-<p style="color: green"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'form', room: Room.new %>
+      <hr>
+      <% @rooms.each do |room| %>
+        <%= link_to room do %>
+          <div class="card mb-2">
+            <div class="card-body">
+              <%= room.name %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-9">
+      <% if @room.present? %>
+        <div style="overflow-y: hidden; height: 100vh">
+          <nav class="navbar navbar-light bg-light mb-4">
+            <span class="navbar-brand">
+              <%= @room.name %>
+            </span>
 
-<h1>Rooms</h1>
-
-<div id="rooms">
-  <% @rooms.each do |room| %>
-    <%= render room %>
-    <p>
-      <%= link_to "Show this room", room %>
-    </p>
-  <% end %>
+          </nav>
+          <% @room.messages.each do |message| %>
+            <div class="mb-2" style=" min-height:59px;">
+              <div style="display: inline-block; <%= "float: right;" if message.user == Current.user %>">
+                <div style="background-color: #eeeeee; padding: 8px 16px; border-radius: 20px;<%="background-color: #007bff; color: white;" if message.user == Current.user %>">
+                  <%= message.content %>
+                </div>
+                <div style="font-size: 0.8rem; color: #777777; margin-left: 10px">
+                  <%= message.user.email %>
+                </div>
+              </div>
+            </div>
+            <br>
+          <% end %>
+          <div style="position: absolute; bottom: 0; padding: 20px; width: 100%">
+            <%= render 'messages/form', message: Message.new, room: @room %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New room", new_room_path %>

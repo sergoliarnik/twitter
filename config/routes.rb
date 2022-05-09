@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :messages
   resources :rooms
+
+
   root 'posts#index', as: 'home'
   get 'about', to: 'pages#about'
 
