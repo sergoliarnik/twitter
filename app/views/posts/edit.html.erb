@@ -1,6 +1,6 @@
 <h2>Edit post</h2>
 
-<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
+<%= form_for :post, url: post_path(@post), local: true, data: { turbo: false }, method: :patch do |f| %>
   <% if @post.errors.any? %>
     <% @post.errors.full_messages.each do |msg| %>
       <p class="alert alert-danger"><%= msg %></p>

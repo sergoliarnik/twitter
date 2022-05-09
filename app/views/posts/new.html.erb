@@ -1,6 +1,6 @@
 <h2>Add new post</h2>
 
-<%= form_for :post, url: posts_path do |f| %>
+<%= form_for :post, url: posts_path, local: true, data: { turbo: false } do |f| %>
   <% if @post.errors.any? %>
     <% @post.errors.full_messages.each do |msg| %>
       <p class="alert alert-danger"><%= msg %></p>
