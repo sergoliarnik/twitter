@@ -1,10 +1,13 @@
 <h2><%= @post.title %></h2>
 <p style="font-size: larger"><%= @post.body %></p>
 <p style="text-align: right"><%= @post.user.email %></p>
-<hr>
+
 <ul class="nav">
-  <li class="ms-auto" style="margin-right: 6px"><%= link_to "Edit", edit_post_path(@post), :class => 'btn btn-warning' %></li>
-  <li><%= button_to "Delete", post_path(@post), method: :delete, :class => 'btn btn-danger' %></li>
+  <% if Current.user == @post.user %>
+    <li class="ms-auto" style="margin-right: 6px"><%= link_to "Edit", edit_post_path(@post), :class => 'btn btn-warning' %></li>
+    <li><%= button_to "Delete", post_path(@post), method: :delete, :class => 'btn btn-danger' %></li>
+  <% end %>
+
 </ul>
 <hr>
 
@@ -25,7 +28,7 @@
   <% end %>
   <p>
     <%= f.label :username %><br>
-    <%= f.text_field(:username, { :class => 'form-control' }) %>
+    <%= f.text_field(:username, :class => 'form-control', :value => Current.user.email) %>
   </p>
   <p>
     <%= f.label :body %><br>
