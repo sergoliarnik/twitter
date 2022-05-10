@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  http_basic_authenticate_with name: "admin", password: "123", except: [:index, :show]
 
   def index
     @posts = Post.all
@@ -34,6 +33,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = Current.user
     if @post.save
       redirect_to @post
     else

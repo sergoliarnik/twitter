@@ -1,8 +1,9 @@
-<h1>All posts</h1>
+<h1 class="alert">All posts</h1>
 <% @posts.each do |post| %>
-  <div class="alert alert-light">
-    <h3><%= post.title %></h3>
+  <div class="alert alert-light bg-light border border-primary" style="border-radius: 25px">
+    <h3 style="color: black"><strong><%= post.title %></strong></h3>
     <p><%= post.body %></p>
-    <%= link_to "Next", post_path(post), :class => 'btn btn-outline-primary' %>
+    <span style="float: right"><%=post.user.email %></span>
+    <%= link_to "Next", post_path(post), :class => 'btn btn-outline-primary'%>
   </div>
 <% end %>
